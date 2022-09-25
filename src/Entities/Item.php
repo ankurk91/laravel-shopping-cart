@@ -8,6 +8,8 @@ use Illuminate\Contracts\Support\Jsonable;
 
 class Item implements Arrayable, Jsonable
 {
+    protected array $attributes = [];
+
     public function __construct(
         public string|int $id,
         public string $name,
@@ -20,6 +22,12 @@ class Item implements Arrayable, Jsonable
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+        return $this;
+    }
+
+    public function setAttributes(array $attributes = []): self
+    {
+        $this->attributes = $attributes;
         return $this;
     }
 
@@ -36,6 +44,7 @@ class Item implements Arrayable, Jsonable
             'quantity' => $this->quantity,
             'unit_price' => $this->unitPrice,
             'subtotal' => $this->subtotal(),
+            ...$this->attributes,
         ];
     }
 

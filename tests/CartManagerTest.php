@@ -95,4 +95,14 @@ class CartManagerTest extends TestCase
         $this->assertStringContainsString('electronics', ShoppingCart::getName());
     }
 
+    public function test_add_accept_extra_attributes()
+    {
+        ShoppingCart::add(22, 'Example', 100, 1, [
+            'image_url' => 'http://localhost/image.webp',
+        ]);
+        $item = ShoppingCart::find(22);
+
+        $this->assertSame($item->toArray()['image_url'], 'http://localhost/image.webp');
+    }
+
 }

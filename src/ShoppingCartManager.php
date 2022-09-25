@@ -43,10 +43,12 @@ class ShoppingCartManager
         string $name,
         int|float $unitPrice,
         int $quantity,
+        array $attributes = [],
     ): Item {
         $this->validateQuantity($quantity);
 
         $item = new Item($id, $name, $quantity, $unitPrice);
+        $item = $item->setAttributes($attributes);
         $collection = $this->getCollection()->addRow($item);
         $this->save($collection);
 

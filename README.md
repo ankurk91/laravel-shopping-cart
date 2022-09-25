@@ -27,15 +27,25 @@ use Ankurk91\LaravelShoppingCart\Facades\ShoppingCart;
 use App\Models\Product;
 
 $product = Product::find(1);
-$quantity = 2;
-$item = ShoppingCart::add($product->id, $product->name, $product->unit_price, $quantity);
+$quantity = request('quantity');
+$attributes = [
+    'image_url' => 'https://example.com/image.webp',
+];
+$item = ShoppingCart::add(
+    $product->id, 
+    $product->name,
+    $product->unit_price,
+    $quantity, 
+    $attributes,
+);
 
 ShoppingCart::find(1);
 ShoppingCart::update($product->id, 3);
 ShoppingCart::all();
 ShoppingCart::count();
+ShoppingCart::has(1);
 ShoppingCart::isEmpty();
-ShoppingCart::subTotal();
+ShoppingCart::subtotal();
 ShoppingCart::remove($product->id);
 ShoppingCart::clear();
 ```
