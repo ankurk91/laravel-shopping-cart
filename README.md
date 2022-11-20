@@ -1,7 +1,7 @@
 # Laravel Shopping Cart
 
 [![Packagist](https://badgen.net/packagist/v/ankurk91/laravel-shopping-cart)](https://packagist.org/packages/ankurk91/laravel-shopping-cart)
-[![GitHub-tag](https://badgen.net/github/tag/ankurk91/laravel-shopping-cart)](https://github.com/ankurk91/laravel-shopping-cart/releases)
+[![GitHub-tag](https://badgen.net/github/tag/ankurk91/laravel-shopping-cart)](https://github.com/ankurk91/laravel-shopping-cart/tags)
 [![License](https://badgen.net/packagist/license/ankurk91/laravel-shopping-cart)](LICENSE.txt)
 [![Downloads](https://badgen.net/packagist/dt/ankurk91/laravel-shopping-cart)](https://packagist.org/packages/ankurk91/laravel-shopping-cart/stats)
 [![GH-Actions](https://github.com/ankurk91/laravel-shopping-cart/workflows/tests/badge.svg)](https://github.com/ankurk91/laravel-shopping-cart/actions)
@@ -43,7 +43,7 @@ ShoppingCart::find(1);
 ShoppingCart::update($product->id, 3);
 ShoppingCart::all();
 ShoppingCart::count();
-ShoppingCart::has(1);
+ShoppingCart::has($product->id);
 ShoppingCart::isEmpty();
 ShoppingCart::subtotal();
 ShoppingCart::remove($product->id);

@@ -18,12 +18,12 @@
   ],
   "require": {
     "php": "^8.1",
-    "illuminate/session": "^8.47 || ^9.3",
-    "illuminate/support": "^8.47 || ^9.3",
-    "illuminate/collections": "^8.47 || ^9.3"
+    "illuminate/session": "^9.34",
+    "illuminate/support": "^9.34",
+    "illuminate/collections": "^9.34"
   },
   "require-dev": {
-    "orchestra/testbench": "^6.25 || ^7.7"
+    "orchestra/testbench": "^7.10"
   },
   "autoload": {
     "psr-4": {
