@@ -18,6 +18,8 @@ class ShoppingCartServiceProvider extends ServiceProvider implements DeferrableP
 
     public function provides(): array
     {
-        return [ShoppingCartManager::class];
+        return [
+            ShoppingCartManager::class,
+        ];
     }
 }

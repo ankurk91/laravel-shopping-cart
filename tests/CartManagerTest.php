@@ -8,9 +8,16 @@ use Ankurk91\LaravelShoppingCart\Entities\ItemCollection;
 use Ankurk91\LaravelShoppingCart\Exceptions\ItemNotFoundException;
 use Ankurk91\LaravelShoppingCart\Exceptions\ShoppingCartException;
 use Ankurk91\LaravelShoppingCart\Facades\ShoppingCart;
+use Ankurk91\LaravelShoppingCart\Tests\Fixtures\Model\Product;
 
 class CartManagerTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        ShoppingCart::clear();
+    }
+
     public function test_add_item()
     {
         $item = ShoppingCart::add(11, 'Choco', 10, 2);
@@ -23,6 +30,9 @@ class CartManagerTest extends TestCase
         $this->assertEquals($savedItem->id, 11);
 
         $this->assertEquals($item->toArray(), $savedItem->toArray());
+
+        $item = ShoppingCart::add(new Product(), 'Model', 10, 2);
+        $this->assertSame($item->id, 99);
     }
 
     public function test_add_duplicate_item()
@@ -43,21 +53,27 @@ class CartManagerTest extends TestCase
         ShoppingCart::update(110, 20);
         $savedItem = ShoppingCart::find(110);
         $this->assertEquals($savedItem->quantity, 20);
+
+        // With Model
+        ShoppingCart::add(new Product(), 'Choco', 10, 2);
+        ShoppingCart::update(99, 21);
+        $savedItem = ShoppingCart::find(99);
+        $this->assertEquals($savedItem->quantity, 21);
     }
 
     public function test_remove_single_item()
     {
-        $item1 = ShoppingCart::add(1, 'Choco', 10, 2);
+        $item1 = ShoppingCart::add(new Product(), 'Model', 10, 2);
         $item2 = ShoppingCart::add(2, 'Bar', 20, 4);
 
-        ShoppingCart::remove(1);
+        ShoppingCart::remove(99);
         $this->assertEquals(1, ShoppingCart::count());
         $this->assertSame(null, ShoppingCart::find(1));
     }
 
     public function test_add_multiple_items()
     {
-        $item1 = ShoppingCart::add(11, 'Choco', 10, 2);
+        $item1 = ShoppingCart::add(new Product(), 'Choco', 10, 2);
         $item2 = ShoppingCart::add(22, 'Bar', 20, 4);
 
         $this->assertEquals(2, ShoppingCart::count());

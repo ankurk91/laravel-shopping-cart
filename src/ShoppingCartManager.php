@@ -8,11 +8,12 @@ use Ankurk91\LaravelShoppingCart\Entities\ItemCollection;
 use Ankurk91\LaravelShoppingCart\Exceptions\ItemNotFoundException;
 use Ankurk91\LaravelShoppingCart\Exceptions\ShoppingCartException;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Database\Eloquent\Model;
 
 class ShoppingCartManager
 {
     public const KEY_PREFIX = 'shopping-cart';
-    protected string $name = self::KEY_PREFIX.'.default';
+    protected string $name = self::KEY_PREFIX . '.default';
 
     public function __construct(protected Session $session)
     {
@@ -21,7 +22,7 @@ class ShoppingCartManager
 
     public function setName(string $name): self
     {
-        $this->name = self::KEY_PREFIX.'.'.$name;
+        $this->name = self::KEY_PREFIX . '.' . $name;
 
         return $this;
     }
@@ -39,13 +40,16 @@ class ShoppingCartManager
     }
 
     public function add(
-        int|string $id,
-        string $name,
-        int|float $unitPrice,
-        int $quantity,
-        array $attributes = [],
-    ): Item {
+        int|string|Model $id,
+        string           $name,
+        int|float        $unitPrice,
+        int              $quantity,
+        array            $attributes = [],
+    ): Item
+    {
         $this->validateQuantity($quantity);
+
+        $id = $this->resolveProductId($id);
 
         $item = new Item($id, $name, $quantity, $unitPrice);
         $item = $item->setAttributes($attributes);
@@ -60,12 +64,17 @@ class ShoppingCartManager
         $this->session->put($this->name, $collection);
     }
 
-    public function update(int|string $id, int $quantity): Item
+    /**
+     * @throws ItemNotFoundException
+     */
+    public function update(int|string|Model $id, int $quantity): Item
     {
         $collection = $this->getCollection();
 
+        $id = $this->resolveProductId($id);
+
         if (!$this->has($id)) {
-            throw new ItemNotFoundException('Item not found in cart with id: '.$id);
+            throw new ItemNotFoundException('Item not found in cart with id: ' . $id);
         }
 
         $this->validateQuantity($quantity);
@@ -76,6 +85,18 @@ class ShoppingCartManager
         return $item;
     }
 
+    protected function resolveProductId(int|string|Model $id)
+    {
+        if ($id instanceof Model) {
+            $id = $id->getKey();
+        }
+
+        return $id;
+    }
+
+    /**
+     * @throws ShoppingCartException
+     */
     protected function validateQuantity(int $quantity): void
     {
         if ($quantity < 1) {
@@ -83,19 +104,22 @@ class ShoppingCartManager
         }
     }
 
-    public function remove(int|string $id): void
+    public function remove(int|string|Model $id): void
     {
+        $id = $this->resolveProductId($id);
         $collection = $this->getCollection()->forget($id);
         $this->save($collection);
     }
 
-    public function find(int|string $id): ?Item
+    public function find(int|string|Model $id): ?Item
     {
+        $id = $this->resolveProductId($id);
         return $this->getCollection()->get($id);
     }
 
-    public function has(int|string $id): bool
+    public function has(int|string|Model $id): bool
     {
+        $id = $this->resolveProductId($id);
         return $this->getCollection()->has($id);
     }
 
