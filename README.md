@@ -29,10 +29,10 @@ use App\Models\Product;
 $product = Product::find(1);
 $quantity = request('quantity');
 $attributes = [
-    'image_url' => 'https://example.com/image.webp',
+    'image_url' => asset('image.webp'),
 ];
 $item = ShoppingCart::add(
-    $product->id, 
+    $product, 
     $product->name,
     $product->unit_price,
     $quantity, 
@@ -43,11 +43,21 @@ ShoppingCart::find(1);
 ShoppingCart::update($product->id, 3);
 ShoppingCart::all();
 ShoppingCart::count();
-ShoppingCart::has($product->id);
+ShoppingCart::has($product);
 ShoppingCart::isEmpty();
 ShoppingCart::subtotal();
-ShoppingCart::remove($product->id);
+ShoppingCart::remove($product->getKey());
 ShoppingCart::clear();
+```
+
+Or you can locate it from container
+
+```php
+<?php
+use Ankurk91\LaravelShoppingCart;
+
+$shoppingCart = app(ShoppingCartManager::class);
+$shoppingCart->all();
 ```
 
 > **Note**

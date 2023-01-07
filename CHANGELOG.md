@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.0](https://github.com/ankurk91/laravel-shopping-cart/compare/1.2.0...1.3.0)
+
+* Allow to supply Model instance instead of id
+
 ## 1.2.0
 
 * Drop support for Laravel 8
