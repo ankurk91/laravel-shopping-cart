@@ -8,7 +8,7 @@ use Ankurk91\LaravelShoppingCart\Entities\ItemCollection;
 use Ankurk91\LaravelShoppingCart\Exceptions\ItemNotFoundException;
 use Ankurk91\LaravelShoppingCart\Exceptions\ShoppingCartException;
 use Ankurk91\LaravelShoppingCart\Facades\ShoppingCart;
-use Ankurk91\LaravelShoppingCart\Tests\Fixtures\Model\Product;
+use Ankurk91\LaravelShoppingCart\Tests\Fixtures\Models\Product;
 
 class CartManagerTest extends TestCase
 {

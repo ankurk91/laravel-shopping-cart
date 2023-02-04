@@ -6,7 +6,7 @@ namespace Ankurk91\LaravelShoppingCart\Tests;
 
 use Ankurk91\LaravelShoppingCart\ShoppingCartServiceProvider;
 
-abstract class TestCase extends \Orchestra\Testbench\TestCase
+class TestCase extends \Orchestra\Testbench\TestCase
 {
     protected function getPackageProviders($app): array
     {
