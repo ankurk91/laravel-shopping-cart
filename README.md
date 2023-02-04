@@ -1,4 +1,4 @@
-# Laravel Shopping Cart
+# Shopping Cart for Laravel
 
 [![Packagist](https://badgen.net/packagist/v/ankurk91/laravel-shopping-cart)](https://packagist.org/packages/ankurk91/laravel-shopping-cart)
 [![GitHub-tag](https://badgen.net/github/tag/ankurk91/laravel-shopping-cart)](https://github.com/ankurk91/laravel-shopping-cart/tags)
