@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.0](https://github.com/ankurk91/laravel-shopping-cart/compare/1.5.0...1.6.0)
+
+* Allow Laravel 12
+* Drop Laravel 10
+
 ## [1.5.0](https://github.com/ankurk91/laravel-shopping-cart/compare/1.4.0...1.5.0)
 
 * Allow Laravel 11

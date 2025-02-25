@@ -9,7 +9,13 @@ use Ankurk91\LaravelShoppingCart\Exceptions\ItemNotFoundException;
 use Ankurk91\LaravelShoppingCart\Exceptions\ShoppingCartException;
 use Ankurk91\LaravelShoppingCart\Facades\ShoppingCart;
 use Ankurk91\LaravelShoppingCart\Tests\Fixtures\Models\Product;
+use PHPUnit\Framework\Attributes\CoversClass;
 
+#[CoversClass(\Ankurk91\LaravelShoppingCart\Entities\Item::class)]
+#[CoversClass(\Ankurk91\LaravelShoppingCart\Entities\ItemCollection::class)]
+#[CoversClass(\Ankurk91\LaravelShoppingCart\ShoppingCartManager::class)]
+#[CoversClass(\Ankurk91\LaravelShoppingCart\ShoppingCartServiceProvider::class)]
+#[CoversClass(\Ankurk91\LaravelShoppingCart\Facades\ShoppingCart::class)]
 class CartManagerTest extends TestCase
 {
     protected function tearDown(): void
